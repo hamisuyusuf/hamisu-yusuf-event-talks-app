@@ -1,0 +1,44 @@
+[
+  {
+    "title": "The Future of Artificial Intelligence",
+    "speakers": ["Dr. Evelyn Reed"],
+    "category": ["AI", "Machine Learning"],
+    "duration": 60,
+    "description": "A deep dive into the latest advancements in AI and what to expect in the coming years."
+  },
+  {
+    "title": "Building Scalable Web Applications",
+    "speakers": ["John Smith", "Jane Doe"],
+    "category": ["Web Development", "Scalability"],
+    "duration": 60,
+    "description": "Learn the best practices for building web applications that can handle millions of users."
+  },
+  {
+    "title": "The Rise of Serverless Architectures",
+    "speakers": ["Peter Jones"],
+    "category": ["Serverless", "Cloud Computing"],
+    "duration": 60,
+    "description": "An introduction to serverless computing and how it can help you build and deploy applications faster."
+  },
+  {
+    "title": "Cybersecurity in the Modern World",
+    "speakers": ["Mary Johnson"],
+    "category": ["Cybersecurity"],
+    "duration": 60,
+    "description": "A look at the latest cybersecurity threats and how to protect yourself and your organization."
+  },
+  {
+    "title": "The Power of Big Data",
+    "speakers": ["David Williams", "Susan Brown"],
+    "category": ["Big Data", "Data Analytics"],
+    "duration": 60,
+    "description": "Learn how to collect, process, and analyze large datasets to gain valuable insights."
+  },
+  {
+    "title": "Introduction to Quantum Computing",
+    "speakers": ["Dr. Michael Clark"],
+    "category": ["Quantum Computing"],
+    "duration": 60,
+    "description": "A beginner-friendly introduction to the fascinating world of quantum computing."
+  }
+]

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Talks 2026</title>
+  <style>body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.search-container {
+  margin-bottom: 1rem;
+}
+
+#category-filter {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.schedule-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-item h2 {
+  margin-top: 0;
+}
+
+.schedule-item .time {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-item .speakers {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-item .category {
+  display: inline-block;
+  background-color: #eee;
+  color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.schedule-item.lunch {
+  background-color: #e0f7fa;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>Tech Talks 2026</h1>
+    <p>A one-day event filled with technical talks.</p>
+  </header>
+  <main>
+    <div class="search-container">
+      <label for="category-filter">Filter by category:</label>
+      <select id="category-filter">
+        <option value="all">All</option>
+      </select>
+    </div>
+    <div id="schedule-container">
+      <!-- Schedule will be injected here by JavaScript -->
+    </div>
+  </main>
+  <script>document.addEventListener('DOMContentLoaded', () => {
+  const scheduleContainer = document.getElementById('schedule-container');
+  const categoryFilter = document.getElementById('category-filter');
+  let talks = [];
+
+  // Fetch talk data
+  new Promise(resolve => resolve({ json: () => [
+  {
+    "title": "The Future of Artificial Intelligence",
+    "speakers": ["Dr. Evelyn Reed"],
+    "category": ["AI", "Machine Learning"],
+    "duration": 60,
+    "description": "A deep dive into the latest advancements in AI and what to expect in the coming years."
+  },
+  {
+    "title": "Building Scalable Web Applications",
+    "speakers": ["John Smith", "Jane Doe"],
+    "category": ["Web Development", "Scalability"],
+    "duration": 60,
+    "description": "Learn the best practices for building web applications that can handle millions of users."
+  },
+  {
+    "title": "The Rise of Serverless Architectures",
+    "speakers": ["Peter Jones"],
+    "category": ["Serverless", "Cloud Computing"],
+    "duration": 60,
+    "description": "An introduction to serverless computing and how it can help you build and deploy applications faster."
+  },
+  {
+    "title": "Cybersecurity in the Modern World",
+    "speakers": ["Mary Johnson"],
+    "category": ["Cybersecurity"],
+    "duration": 60,
+    "description": "A look at the latest cybersecurity threats and how to protect yourself and your organization."
+  },
+  {
+    "title": "The Power of Big Data",
+    "speakers": ["David Williams", "Susan Brown"],
+    "category": ["Big Data", "Data Analytics"],
+    "duration": 60,
+    "description": "Learn how to collect, process, and analyze large datasets to gain valuable insights."
+  },
+  {
+    "title": "Introduction to Quantum Computing",
+    "speakers": ["Dr. Michael Clark"],
+    "category": ["Quantum Computing"],
+    "duration": 60,
+    "description": "A beginner-friendly introduction to the fascinating world of quantum computing."
+  }
+]
+ }))
+    .then(response => response.json())
+    .then(data => {
+      talks = data;
+      populateCategories(talks);
+      renderSchedule(talks);
+    });
+
+  // Populate category filter
+  function populateCategories(talks) {
+    const categories = new Set();
+    talks.forEach(talk => {
+      talk.category.forEach(cat => categories.add(cat));
+    });
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat;
+      option.textContent = cat;
+      categoryFilter.appendChild(option);
+    });
+  }
+
+  // Render schedule
+  function renderSchedule(talksToRender) {
+    scheduleContainer.innerHTML = '';
+    let currentTime = new Date('2026-01-01T10:00:00');
+
+    talksToRender.forEach((talk, index) => {
+      if (index === 3) {
+        // Lunch break
+        const lunchBreak = document.createElement('div');
+        lunchBreak.className = 'schedule-item lunch';
+        const lunchTime = new Date(currentTime.getTime());
+        lunchBreak.innerHTML = `
+          <div class="time">${formatTime(lunchTime)} - ${formatTime(new Date(lunchTime.getTime() + 60 * 60 * 1000))}</div>
+          <h2>Lunch Break</h2>
+        `;
+        scheduleContainer.appendChild(lunchBreak);
+        currentTime.setMinutes(currentTime.getMinutes() + 60);
+      }
+      
+      const talkElement = document.createElement('div');
+      talkElement.className = 'schedule-item';
+
+      const talkTime = new Date(currentTime.getTime());
+      const endTime = new Date(talkTime.getTime() + talk.duration * 60 * 1000);
+
+      talkElement.innerHTML = `
+        <div class="time">${formatTime(talkTime)} - ${formatTime(endTime)}</div>
+        <h2>${talk.title}</h2>
+        <div class="speakers">By: ${talk.speakers.join(', ')}</div>
+        <div class="categories">
+          ${talk.category.map(cat => `<span class="category">${cat}</span>`).join('')}
+        </div>
+        <p>${talk.description}</p>
+      `;
+
+      scheduleContainer.appendChild(talkElement);
+
+      currentTime = new Date(endTime.getTime() + 10 * 60 * 1000); // 10 minute break
+    });
+  }
+
+  // Format time
+  function formatTime(date) {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Filter event listener
+  categoryFilter.addEventListener('change', () => {
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory === 'all') {
+      renderSchedule(talks);
+    } else {
+      const filteredTalks = talks.filter(talk => talk.category.includes(selectedCategory));
+      renderSchedule(filteredTalks);
+    }
+  });
+});
+</script>
+</body>
+</html>

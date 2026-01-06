@@ -1,0 +1,66 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.search-container {
+  margin-bottom: 1rem;
+}
+
+#category-filter {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.schedule-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-item h2 {
+  margin-top: 0;
+}
+
+.schedule-item .time {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-item .speakers {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-item .category {
+  display: inline-block;
+  background-color: #eee;
+  color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.schedule-item.lunch {
+  background-color: #e0f7fa;
+  text-align: center;
+}
